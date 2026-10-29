@@ -2,7 +2,7 @@
 """pack.py TARGET OUTPUT_DIR DIST_DIR TAG_BASE_URL
 Turns the .deb files that termux-packages built (with the prefix of Jaric) into the archives of Jcmp-pkg:
  * keeps TARGET and the packages it needs (the closure of Depends among the built files),
- * one DIST_DIR/NAME-VERSION-aarch64.tar.xz each (the folder usr/ of the prefix; a colon of an epoch becomes a dot),
+ * one DIST_DIR/NAME-VERSION-aarch64.tar.gz each (the folder usr/ of the prefix; a colon of an epoch becomes a dot),
  * DIST_DIR/index-TARGET.json: the lines for index.json (name, version, arch, url, sha256, size, unpacked size, depends, bin)."""
 import hashlib, json, os, re, subprocess, sys, tarfile, tempfile
 
@@ -47,8 +47,8 @@ for name in sorted(keep):
         root = os.path.join(tmp, PREFIX)
         if not os.path.isdir(os.path.join(root, "usr")):
             print("no usr/ in %s (the prefix of the build is not Jaric's?)" % name, file=sys.stderr); sys.exit(2)
-        archive = os.path.join(dist, "%s-%s-aarch64.tar.xz" % (name, safe))
-        with tarfile.open(archive, "w:xz") as t:
+        archive = os.path.join(dist, "%s-%s-aarch64.tar.gz" % (name, safe))
+        with tarfile.open(archive, "w:gz", format=tarfile.GNU_FORMAT) as t:
             t.add(os.path.join(root, "usr"), arcname="usr")
         unpacked = sum(os.path.getsize(os.path.join(d, f)) for d, _, fs in os.walk(os.path.join(root, "usr")) for f in fs if os.path.isfile(os.path.join(d, f)))
         bins = sorted("bin/" + f for f in os.listdir(os.path.join(root, "usr", "bin"))) if os.path.isdir(os.path.join(root, "usr", "bin")) else []
