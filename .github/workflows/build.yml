@@ -1,0 +1,27 @@
+# UNTESTED SKELETON (2026-10-29): builds one package with the build scripts of termux-packages, the prefix changed to Jaric's.
+name: build
+on:
+  workflow_dispatch:
+    inputs:
+      package:
+        description: "package to build (e.g. git)"
+        required: true
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: get termux-packages
+        run: git clone --depth 1 https://github.com/termux/termux-packages.git tp
+      - name: change the prefix to Jaric's
+        run: |
+          cd tp
+          sed -i 's/com\.termux/com.jaric.app/g' scripts/properties.sh
+      - name: build
+        run: |
+          cd tp
+          ./scripts/run-docker.sh ./build-package.sh -a aarch64 "${{ github.event.inputs.package }}"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ github.event.inputs.package }}
+          path: tp/output/*
