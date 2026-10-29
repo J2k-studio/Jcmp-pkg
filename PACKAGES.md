@@ -4,10 +4,10 @@ How: each package is built from the recipes of termux-packages with the prefix o
 
 | Package | What | Why for Jaric | Size | Order |
 |---|---|---|---|---|
-| **git** | the real git | the owner's workflows; jgit stays the small one | ~15 MB | 1 |
+| **git** (done) | the real git | the owner's workflows; jgit stays the small one | ~15 MB | 1 |
 | **clang** | C/C++ compiler (+ lld, libc++) | build C code, compare speed with J2K (`bench/`), build other packages | ~150 MB | 2 |
-| **python** | Python 3 + pip | scripts, data tools, test helpers | ~40 MB | 3 |
-| **dropbear** | ssh client and server (and scp) | log in and copy files | ~1 MB | 4 |
+| **python** (done; pip = python-pip) | Python 3 + pip | scripts, data tools, test helpers | ~40 MB | 3 |
+| **dropbear** (done) | ssh client and server (and scp) | log in and copy files | ~1 MB | 4 |
 | **openjdk** (java) | the JDK 17+ and `jar` | Java and Kotlin apps, Gradle later; the owner asked for java | ~120 MB | 5 |
 | **rust** | rustc + cargo + std | Rust programs; the owner asked for rust | ~700 MB (large; optional) | 6 |
 | **nodejs** | node + npm | web tools, scripts | ~40 MB | 7 |
