@@ -6,6 +6,10 @@ on:
       package:
         description: "package to build (e.g. git)"
         required: true
+      source:
+        description: "build recipe when it has another name (clang is made by libllvm); empty = the package itself"
+        required: false
+        default: ""
 permissions:
   contents: write
 jobs:
@@ -24,7 +28,7 @@ jobs:
         run: |
           cd tp
           for try in 1 2 3; do
-            ./scripts/run-docker.sh ./build-package.sh -a aarch64 "${{ github.event.inputs.package }}" && break
+            ./scripts/run-docker.sh ./build-package.sh -a aarch64 "${{ github.event.inputs.source || github.event.inputs.package }}" && break
             echo "the build failed (try $try): again"
           done
           ls output | head -200
