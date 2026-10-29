@@ -12,5 +12,7 @@ Packages for [Jaric](https://github.com/J2k-studio/Jcmp): programs that J2K does
 * `recipes/NAME.sh` — how a package is built (a build script of termux-packages with the Jaric prefix).
 * `.github/workflows/build.yml` — builds the packages on GitHub Actions and attaches them to a release.
 
+See [PACKAGES.md](PACKAGES.md) for the list of packages that are planned (git, clang, python, dropbear (ssh), java (openjdk), rust, node, sqlite, ffmpeg and the usual small tools) and in what order.
+
 ## Status
 Started 2026-10-29. Nothing is published yet: the first goal is `git`, then `clang`, `python`, `dropbear` (ssh).
